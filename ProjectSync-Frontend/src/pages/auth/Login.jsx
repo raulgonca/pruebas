@@ -78,7 +78,7 @@ const Login = () => {
       <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex overflow-hidden border-2 border-purple-200">
         {/* Lado izquierdo - Logo y título */}
         <div className="bg-purple-700 text-white w-2/5 p-8 flex flex-col justify-center items-center">
-          <img src={logoFull} alt="Logo ProjectSync" className="h-28 w-auto mb-4" />
+          <img src={logoFull} alt="Logo ProjectSync" className="h-14 w-auto mb-2" />
           <p className="text-center text-purple-100">Tu plataforma para gestionar proyectos de forma eficiente y colaborativa</p>
         </div>
         {/* Lado derecho - Formulario */}

@@ -202,7 +202,7 @@ const Register = () => {
         </div>
         {/* Lado derecho - Logo y título */}
         <div className="bg-purple-700 text-white w-2/5 p-6 flex flex-col justify-center items-center">
-          <img src={logoFull} alt="Logo ProjectSync" className="h-28 w-auto mb-2" />
+          <img src={logoFull} alt="Logo ProjectSync" className="h-14 w-auto mb-2" />
           <p className="text-center text-purple-100 text-sm">Tu plataforma para gestionar proyectos de forma eficiente y colaborativa</p>
         </div>
       </div>

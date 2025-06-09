@@ -86,7 +86,7 @@ const Sidebar = () => {
       <div className="p-4 flex items-center justify-center">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <img src={logoFull} alt="ProjectSync Logo" className="h-14 w-auto max-w-[160px]" />
+            <img src={logoFull} alt="ProjectSync Logo" className="h-10 w-auto max-w-[120px]" />
           </div>
         )}
         {collapsed && (
@@ -119,11 +119,11 @@ const Sidebar = () => {
                   isActive(item.path) 
                     ? 'bg-purple-600 text-white' 
                     : 'text-gray-200 hover:bg-purple-700'
-                } rounded-lg mx-2 transition-colors justify-center ${collapsed ? 'justify-center' : ''}`}
+                } rounded-lg mx-2 transition-colors ${collapsed ? 'justify-center' : 'gap-3'}`}
                 onClick={() => isMobile && setCollapsed(true)}
               >
-                <span className={`text-xl ${collapsed ? '' : 'mr-3'}`}>{item.icon}</span>
-                {!collapsed && <span>{item.name}</span>}
+                <span className={`text-xl flex items-center justify-center ${collapsed ? '' : ''}`}>{item.icon}</span>
+                {!collapsed && <span className="flex items-center">{item.name}</span>}
               </Link>
             </li>
           ))}
