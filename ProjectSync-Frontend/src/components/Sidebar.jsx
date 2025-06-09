@@ -91,7 +91,7 @@ const Sidebar = () => {
         )}
         {collapsed && (
           <div className="mx-auto">
-            <img src={logoIcon} alt="Logo" className="h-12 w-12 rounded" />
+            <img src={logoIcon} alt="Logo" className="h-10 w-10 rounded" />
           </div>
         )}
       </div>
@@ -135,13 +135,13 @@ const Sidebar = () => {
         {collapsed ? (
           <div className="flex items-center justify-center">
             <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-lg font-bold select-none">
-              <span className="mx-auto block leading-none">{currentUser?.username?.charAt(0) || 'U'}</span>
+              <span className="mx-auto block leading-none">{(currentUser?.username?.charAt(0) || 'U').toUpperCase()}</span>
             </div>
           </div>
         ) : (
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-lg font-bold select-none">
-              <span className="mx-auto block leading-none">{currentUser?.username?.charAt(0) || 'U'}</span>
+              <span className="mx-auto block leading-none">{(currentUser?.username?.charAt(0) || 'U').toUpperCase()}</span>
             </div>
             <div className="flex flex-col">
               <Link
