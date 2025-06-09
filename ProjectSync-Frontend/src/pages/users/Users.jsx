@@ -115,7 +115,7 @@ const Users = () => {
     }
   };
 
-  // Obtener rol del usuario actual
+  // Obtén isAdmin igual que en clientes
   const user = JSON.parse(localStorage.getItem('user'));
   const roles = user?.roles || user?.authorities || [];
   const isAdmin = Array.isArray(roles)
@@ -130,6 +130,10 @@ const Users = () => {
 
   // Función para crear usuario
   const handleCreateUser = () => {
+    if (!isAdmin) {
+      toast.warning('No tienes permisos para crear usuarios.');
+      return;
+    }
     setEditUser(null);
     setIsModalOpen(true);
   };
