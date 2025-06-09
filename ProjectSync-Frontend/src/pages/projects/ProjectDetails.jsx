@@ -236,7 +236,7 @@ const ProjectDetails = ({ projectId }) => {
       {/* No sidebar aquí, lo pone la app */}
       <main className="w-full max-w-7xl mx-auto p-2 sm:p-4 md:p-10">
         {/* Botón volver */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <Link to="/main/projects" className="flex items-center text-purple-600 hover:underline text-base sm:text-lg font-medium">
             <FaArrowLeft className="mr-2" /> Volver a proyectos
           </Link>
@@ -244,7 +244,7 @@ const ProjectDetails = ({ projectId }) => {
         {/* Grid superior */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
           {/* Detalles del proyecto */}
-          <section className="relative bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-8 flex flex-col justify-between min-h-[260px]">
+          <section className="relative bg-white rounded-xl border-2 border-purple-200 p-3 sm:p-6 md:p-8 flex flex-col justify-between min-h-[260px] mb-4 lg:mb-0">
             {editMode ? (
               <>
                 <input
@@ -304,7 +304,7 @@ const ProjectDetails = ({ projectId }) => {
             ) : (
               <>
                   {/* Badge de estado en la esquina superior derecha */}
-                  <div className="absolute top-0 right-0 mt-4 mr-6 z-10">
+                  <div className="absolute top-2 right-2 sm:top-4 sm:right-6 z-10">
                     {repo.fechaFin ? (
                       new Date(repo.fechaFin) < new Date() ? (
                         <span className="inline-block px-4 py-1.5 rounded-full bg-green-100 text-green-700 text-xs font-bold shadow-lg tracking-wide uppercase">
@@ -385,7 +385,7 @@ const ProjectDetails = ({ projectId }) => {
           {/* Columna derecha: Clientes y Colaboradores */}
           <div className="flex flex-col gap-4 md:gap-6">
             {/* Cliente */}
-            <section className="bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-6 flex flex-col min-h-[80px]">
+            <section className="bg-white rounded-xl border-2 border-purple-200 p-3 sm:p-6 flex flex-col min-h-[80px] mb-2">
               <h2 className="text-xl font-bold mb-2 text-purple-700">Cliente</h2>
               <div className="flex-1 flex flex-col items-start justify-center">
                 <div className="mb-2 flex items-center gap-2">
@@ -417,7 +417,7 @@ const ProjectDetails = ({ projectId }) => {
               </div>
             </section>
             {/* Colaboradores */}
-            <section className="bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-6 flex flex-col min-h-[160px]">
+            <section className="bg-white rounded-xl border-2 border-purple-200 p-3 sm:p-6 flex flex-col min-h-[160px]">
               <h2 className="text-xl font-bold mb-2 text-purple-700">Colaboradores</h2>
               <div className="flex-1 overflow-auto max-h-40">
                 <ul className="space-y-2">
@@ -444,7 +444,7 @@ const ProjectDetails = ({ projectId }) => {
                   )}
                 </ul>
               </div>
-              <div className="mt-4">
+              <div className="mt-3 sm:mt-4">
                 <button
                   onClick={() => {
                     if (isColaboradorSolo()) {
@@ -462,9 +462,9 @@ const ProjectDetails = ({ projectId }) => {
           </div>
         </div>
         {/* Sección de ficheros */}
-        <section className="bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-8 mt-6 md:mt-8 min-h-[200px] shadow-sm">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-            <h2 className="text-2xl font-extrabold text-purple-700 flex items-center gap-2 tracking-tight">
+        <section className="bg-white rounded-xl border-2 border-purple-200 p-3 sm:p-8 mt-4 md:mt-8 min-h-[200px] shadow-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3 sm:gap-4">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-purple-700 flex items-center gap-2 tracking-tight">
               <FaFolderOpen /> Ficheros
             </h2>
             <div className="flex gap-2 flex-wrap">
@@ -491,7 +491,7 @@ const ProjectDetails = ({ projectId }) => {
             </div>
           </div>
           {files.length === 0 ? (
-            <div className="text-gray-400 text-center py-10 font-medium">
+            <div className="text-gray-400 text-center py-8 sm:py-10 font-medium">
               Aquí aparecerán los ficheros del proyecto.
             </div>
           ) : (
