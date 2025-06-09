@@ -566,32 +566,57 @@ export const projectFileService = {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user?.token) throw new Error('No hay token de autenticación');
     
-    try {
-      const response = await fetch(`${API_URL}/api/projects/${projectId}/files/download-zip`, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`
+    // Crear una URL con el token en el header en lugar de query parameter
+    const url = `${API_URL}/api/projects/${projectId}/files/download-zip`;
+    const newWindow = window.open('', '_blank');
+    
+    if (newWindow) {
+      // Crear un iframe oculto para hacer la petición con el header de autorización
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      
+      iframe.onload = () => {
+        try {
+          const iframeWindow = iframe.contentWindow;
+          iframeWindow.location.href = url;
+          
+          // Añadir el header de autorización
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true);
+          xhr.setRequestHeader('Authorization', `Bearer ${user.token}`);
+          xhr.responseType = 'blob';
+          
+          xhr.onload = () => {
+            if (xhr.status === 200) {
+              const blob = xhr.response;
+              const downloadUrl = window.URL.createObjectURL(blob);
+              newWindow.location.href = downloadUrl;
+            } else {
+              newWindow.close();
+              throw new Error('Error al descargar el archivo ZIP');
+            }
+          };
+          
+          xhr.onerror = () => {
+            newWindow.close();
+            throw new Error('Error en la descarga');
+          };
+          
+          xhr.send();
+        } catch (error) {
+          console.error('Error en downloadAllFilesZip:', error);
+          newWindow.close();
+          throw error;
+        } finally {
+          // Limpiar el iframe después de un tiempo
+          setTimeout(() => {
+            document.body.removeChild(iframe);
+          }, 1000);
         }
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error('No autorizado. Inicia sesión de nuevo.');
-        }
-        throw new Error('Error al descargar el archivo ZIP');
-      }
-
-      const blob = await response.blob();
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = downloadUrl;
-      a.download = `proyecto_${projectId}.zip`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(downloadUrl);
-    } catch (error) {
-      console.error('Error en downloadAllFilesZip:', error);
-      throw error;
+      };
+    } else {
+      throw new Error('No se pudo abrir la ventana de descarga. Verifica que los popups no estén bloqueados.');
     }
   },
   // Eliminar un archivo de un proyecto
