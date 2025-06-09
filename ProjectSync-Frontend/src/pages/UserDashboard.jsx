@@ -43,107 +43,106 @@ const UserDashboard = () => {
   }).length;
 
   return (
-    <div className="p-4 sm:p-6">
-      <h1 className="text-2xl font-bold mb-4 text-purple-800">Mi Panel</h1>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl shadow p-4 flex flex-col items-center text-white border-2 border-purple-200">
-          <FaFolderOpen className="text-2xl mb-1" />
-          <div className="text-xl font-bold">{ownProjects.length}</div>
-          <div className="text-xs opacity-80">Proyectos propios</div>
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-purple-800">Mi Panel</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <div className="bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl shadow p-3 sm:p-4 flex flex-col items-center text-white border-2 border-purple-200">
+          <FaFolderOpen className="text-xl sm:text-2xl mb-1" />
+          <div className="text-lg sm:text-xl font-bold">{ownProjects.length}</div>
+          <div className="text-xs sm:text-sm opacity-80">Proyectos propios</div>
         </div>
-        <div className="bg-gradient-to-br from-pink-300 to-purple-400 rounded-xl shadow p-4 flex flex-col items-center text-white border-2 border-purple-200">
-          <FaUsers className="text-2xl mb-1" />
-          <div className="text-xl font-bold">{collabProjects.length}</div>
-          <div className="text-xs opacity-80">Colaboraciones</div>
+        <div className="bg-gradient-to-br from-pink-300 to-purple-400 rounded-xl shadow p-3 sm:p-4 flex flex-col items-center text-white border-2 border-purple-200">
+          <FaUsers className="text-xl sm:text-2xl mb-1" />
+          <div className="text-lg sm:text-xl font-bold">{collabProjects.length}</div>
+          <div className="text-xs sm:text-sm opacity-80">Colaboraciones</div>
         </div>
-        <div className="bg-gradient-to-br from-green-300 to-green-500 rounded-xl shadow p-4 flex flex-col items-center text-white border-2 border-purple-200">
-          <span className="text-2xl mb-1">✔️</span>
-          <div className="text-xl font-bold">{finalizados}</div>
-          <div className="text-xs opacity-80">Finalizados</div>
+        <div className="bg-gradient-to-br from-green-300 to-green-500 rounded-xl shadow p-3 sm:p-4 flex flex-col items-center text-white border-2 border-purple-200">
+          <span className="text-xl sm:text-2xl mb-1">✔️</span>
+          <div className="text-lg sm:text-xl font-bold">{finalizados}</div>
+          <div className="text-xs sm:text-sm opacity-80">Finalizados</div>
         </div>
-        <div className="bg-gradient-to-br from-yellow-200 to-yellow-400 rounded-xl shadow p-4 flex flex-col items-center text-gray-800 border-2 border-purple-200">
-          <span className="text-2xl mb-1">⏳</span>
-          <div className="text-xl font-bold">{proximos}</div>
-          <div className="text-xs opacity-80">Próx. a finalizar</div>
+        <div className="bg-gradient-to-br from-yellow-200 to-yellow-400 rounded-xl shadow p-3 sm:p-4 flex flex-col items-center text-gray-800 border-2 border-purple-200">
+          <span className="text-xl sm:text-2xl mb-1">⏳</span>
+          <div className="text-lg sm:text-xl font-bold">{proximos}</div>
+          <div className="text-xs sm:text-sm opacity-80">Próx. a finalizar</div>
         </div>
       </div>
-      <div className="bg-white rounded-xl shadow p-4 mb-6 border-2 border-purple-200">
-        <h2 className="text-lg font-semibold mb-3 text-purple-700">Mis proyectos propios</h2>
+      <div className="bg-white rounded-xl shadow p-3 sm:p-6 mb-6 border-2 border-purple-200">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 text-purple-700">Mis proyectos propios</h2>
         {loading ? (
           <LoadingSpinner section="projects" text="Cargando proyectos..." />
         ) : ownProjects.length === 0 ? (
-          <p className="text-gray-500">No tienes proyectos propios.</p>
+          <p className="text-gray-500 text-sm sm:text-base">No tienes proyectos propios.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {ownProjects.map(p => (
               <div
                 key={p.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between bg-purple-50 border-2 border-purple-200 rounded-lg px-4 py-3 hover:shadow transition group"
+                className="flex flex-col sm:flex-row sm:items-center justify-between bg-purple-50 border-2 border-purple-200 rounded-lg px-3 sm:px-4 py-2 sm:py-3 hover:shadow transition group"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="font-bold text-purple-800 text-base truncate group-hover:underline">
-                    {/* Primera letra en mayúscula */}
+                  <div className="font-bold text-purple-800 text-sm sm:text-base truncate group-hover:underline">
                     {p.projectname
                       ? p.projectname.charAt(0).toUpperCase() + p.projectname.slice(1)
                       : ''}
                   </div>
-                  <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-700">
+                  <div className="flex flex-wrap gap-2 sm:gap-4 mt-1 text-xs sm:text-sm text-gray-700">
                     <span>
-                      <span className="font-semibold text-purple-600">Fin:</span> {p.fechaFin || '-'}
+                      <span className="font-semibold text-purple-600">Fin:</span> {p.fechaFin ? new Date(p.fechaFin).toLocaleDateString() : '-'}
                     </span>
                     {p.client?.name && (
                       <span>
-                        <span className="font-semibold text-purple-600">Cliente:</span> {p.client.name}
+                        <span className="font-semibold text-purple-600">Cliente:</span> <span className="truncate">{p.client.name}</span>
                       </span>
                     )}
                   </div>
                 </div>
                 <Link
                   to={`/main/projects/${p.id}`}
-                  className="mt-2 sm:mt-0 sm:ml-6 inline-flex items-center gap-1 px-3 py-1.5 bg-purple-100 hover:bg-purple-300 text-purple-700 hover:text-white rounded font-semibold text-xs transition"
+                  className="mt-2 sm:mt-0 sm:ml-4 inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-purple-100 hover:bg-purple-300 text-purple-700 hover:text-white rounded font-semibold text-xs transition"
                   title="Ver proyecto"
                 >
-                  Ver <FaArrowRight />
+                  Ver <FaArrowRight className="text-xs sm:text-sm" />
                 </Link>
               </div>
             ))}
           </div>
         )}
       </div>
-      <div className="bg-white rounded-xl shadow p-4 border-2 border-purple-200">
-        <h2 className="text-lg font-semibold mb-3 text-purple-700">Proyectos como colaborador</h2>
+      <div className="bg-white rounded-xl shadow p-3 sm:p-6 border-2 border-purple-200">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 text-purple-700">Proyectos como colaborador</h2>
         {loading ? (
           <LoadingSpinner section="projects" text="Cargando proyectos..." />
         ) : collabProjects.length === 0 ? (
-          <p className="text-gray-500">No colaboras en ningún proyecto.</p>
+          <p className="text-gray-500 text-sm sm:text-base">No colaboras en ningún proyecto.</p>
         ) : (
           <div className="flex flex-col gap-2">
             {collabProjects.map(p => (
               <div
                 key={p.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between bg-purple-50 border-2 border-purple-200 rounded-lg px-4 py-3 hover:shadow transition group"
+                className="flex flex-col sm:flex-row sm:items-center justify-between bg-purple-50 border-2 border-purple-200 rounded-lg px-3 sm:px-4 py-2 sm:py-3 hover:shadow transition group"
               >
                 <div className="flex-1 min-w-0">
-                  <div className="font-bold text-purple-800 text-base truncate group-hover:underline">
+                  <div className="font-bold text-purple-800 text-sm sm:text-base truncate group-hover:underline">
                     {p.projectname}
                   </div>
-                  <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-700">
+                  <div className="flex flex-wrap gap-2 sm:gap-4 mt-1 text-xs sm:text-sm text-gray-700">
                     <span>
-                      <span className="font-semibold text-purple-600">Fin:</span> {p.fechaFin || '-'}
+                      <span className="font-semibold text-purple-600">Fin:</span> {p.fechaFin ? new Date(p.fechaFin).toLocaleDateString() : '-'}
                     </span>
                     {p.client?.name && (
                       <span>
-                        <span className="font-semibold text-purple-600">Cliente:</span> {p.client.name}
+                        <span className="font-semibold text-purple-600">Cliente:</span> <span className="truncate">{p.client.name}</span>
                       </span>
                     )}
                   </div>
                 </div>
                 <Link
                   to={`/main/projects/${p.id}`}
-                  className="mt-2 sm:mt-0 sm:ml-6 inline-flex items-center gap-1 px-3 py-1.5 bg-purple-100 hover:bg-purple-300 text-purple-700 hover:text-white rounded font-semibold text-xs transition"
+                  className="mt-2 sm:mt-0 sm:ml-4 inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-purple-100 hover:bg-purple-300 text-purple-700 hover:text-white rounded font-semibold text-xs transition"
                   title="Ver proyecto"
                 >
-                  Ver <FaArrowRight />
+                  Ver <FaArrowRight className="text-xs sm:text-sm" />
                 </Link>
               </div>
             ))}

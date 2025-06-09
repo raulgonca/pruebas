@@ -205,89 +205,94 @@ const Users = () => {
   }
 
   return (
-    <div className="p-5">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       {/* Cabecera con título y acciones */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-slate-800 mb-4 md:mb-0">Gestión de Usuarios</h1>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-800">Gestión de Usuarios</h1>
         
-        <div className="flex flex-col w-full md:w-auto space-y-2 md:space-y-0 md:space-x-2">
-          <div className="flex space-x-2">
-            <div className="relative flex-grow">
+        <div className="w-full md:w-auto flex flex-col gap-3">
+          <div className="flex flex-wrap gap-2">
+            <div className="relative flex-grow min-w-[200px]">
               <input
                 type="text"
                 placeholder="Buscar usuario..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-3 sm:px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
               />
               <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             </div>
             
-            <button 
-              onClick={() => setShowFilters(!showFilters)}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-lg flex items-center transition-colors"
-              title="Mostrar filtros"
-            >
-              <FaFilter className={`${showFilters ? 'text-purple-600' : 'text-gray-600'}`} />
-            </button>
-            
-            <button 
-              onClick={fetchUsers}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-lg flex items-center transition-colors"
-              title="Recargar usuarios"
-              disabled={loading}
-            >
-              <FaSync className={`${loading ? 'animate-spin text-purple-600' : 'text-gray-600'}`} />
-            </button>
-            
-            <button 
-              onClick={exportToCSV}
-              className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center transition-colors"
-              title="Exportar usuarios"
-            >
-              <FaFileExport />
-            </button>
-            
-            <button 
-              onClick={handleCreateUser}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
-            >
-              <FaPlus className="mr-2" />
-              Nuevo Usuario
-            </button>
+            <div className="flex flex-wrap gap-2">
+              <button 
+                onClick={() => setShowFilters(!showFilters)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-lg flex items-center transition-colors text-sm sm:text-base"
+                title="Mostrar filtros"
+              >
+                <FaFilter className={`${showFilters ? 'text-purple-600' : 'text-gray-600'} mr-1`} />
+                Filtros
+              </button>
+              
+              <button 
+                onClick={fetchUsers}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-lg flex items-center transition-colors text-sm sm:text-base"
+                title="Recargar usuarios"
+                disabled={loading}
+              >
+                <FaSync className={`${loading ? 'animate-spin text-purple-600' : 'text-gray-600'} mr-1 sm:mr-2`} />
+                Recargar
+              </button>
+              
+              <button 
+                onClick={exportToCSV}
+                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center transition-colors text-sm sm:text-base whitespace-nowrap"
+                title="Exportar usuarios"
+              >
+                <FaFileExport className="mr-1 sm:mr-2" />
+                Exportar
+              </button>
+              
+              <button 
+                onClick={handleCreateUser}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center transition-colors text-sm sm:text-base whitespace-nowrap"
+              >
+                <FaPlus className="mr-1 sm:mr-2" />
+                Nuevo Usuario
+              </button>
+            </div>
           </div>
           
           {showFilters && (
-            <div className="bg-white p-3 rounded-lg shadow-md border border-gray-200 mt-2 flex flex-wrap gap-2">
+            <div className="bg-white p-3 sm:p-4 rounded-lg shadow-md border border-gray-200 flex flex-wrap gap-2">
               <span className="text-sm text-gray-600 mr-2 self-center">Filtrar por:</span>
               <div className="flex flex-wrap gap-2">
                 <button 
                   onClick={() => setFilterType('all')} 
-                  className={`px-3 py-1 text-sm rounded-full ${filterType === 'all' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'all' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                 >
                   Todos
                 </button>
                 <button 
                   onClick={() => setFilterType('username')} 
-                  className={`px-3 py-1 text-sm rounded-full ${filterType === 'username' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'username' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                 >
                   Usuario
                 </button>
                 <button 
                   onClick={() => setFilterType('name')} 
-                  className={`px-3 py-1 text-sm rounded-full ${filterType === 'name' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'name' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                 >
                   Nombre
                 </button>
                 <button 
                   onClick={() => setFilterType('email')} 
-                  className={`px-3 py-1 text-sm rounded-full ${filterType === 'email' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'email' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                 >
                   Email
                 </button>
                 <button 
                   onClick={() => setFilterType('role')} 
-                  className={`px-3 py-1 text-sm rounded-full ${filterType === 'role' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'role' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                 >
                   Rol
                 </button>
@@ -299,28 +304,28 @@ const Users = () => {
       
       {/* Mensaje de error */}
       {error && (
-        <div className="bg-red-100 text-red-800 p-4 rounded-md my-5 flex items-center">
-          <FaExclamationTriangle className="mr-2" />
-          {error}
+        <div className="bg-red-100 text-red-800 p-4 rounded-md mb-6 flex items-center">
+          <FaExclamationTriangle className="mr-2 flex-shrink-0" />
+          <span className="text-sm sm:text-base">{error}</span>
         </div>
       )}
       
       {/* Lista de usuarios */}
       {currentUsers.length === 0 ? (
-        <div className="bg-gray-100 p-8 rounded-lg text-center">
+        <div className="bg-gray-100 p-6 sm:p-8 rounded-lg text-center">
           {searchTerm ? (
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               No se encontraron usuarios que coincidan con "<strong>{searchTerm}</strong>"
             </p>
           ) : (
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               No hay usuarios disponibles. ¡Crea el primero haciendo clic en "Nuevo Usuario"!
             </p>
           )}
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {currentUsers.map(user => (
               <UserCard
                 key={user.id}
@@ -339,7 +344,7 @@ const Users = () => {
                 <button
                   onClick={() => paginate(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className={`px-3 py-1 rounded-l-md border ${
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-l-md border transition-colors ${
                     currentPage === 1 
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                       : 'bg-white text-purple-600 hover:bg-purple-50'
@@ -359,7 +364,7 @@ const Users = () => {
                       <button
                         key={index}
                         onClick={() => paginate(index + 1)}
-                        className={`px-3 py-1 border-t border-b ${
+                        className={`px-2 sm:px-3 py-1 text-xs sm:text-sm border-t border-b transition-colors ${
                           currentPage === index + 1
                             ? 'bg-purple-600 text-white'
                             : 'bg-white text-purple-600 hover:bg-purple-50'
@@ -373,7 +378,7 @@ const Users = () => {
                     (index + 1 === currentPage + 2 && currentPage < totalPages - 2)
                   ) {
                     return (
-                      <span key={index} className="px-3 py-1 border-t border-b bg-white text-gray-600">
+                      <span key={index} className="px-2 sm:px-3 py-1 text-xs sm:text-sm border-t border-b bg-white text-gray-600">
                         ...
                       </span>
                     );
@@ -384,7 +389,7 @@ const Users = () => {
                 <button
                   onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className={`px-3 py-1 rounded-r-md border ${
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-r-md border transition-colors ${
                     currentPage === totalPages
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                       : 'bg-white text-purple-600 hover:bg-purple-50'

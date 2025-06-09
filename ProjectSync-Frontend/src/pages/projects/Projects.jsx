@@ -88,82 +88,84 @@ const Projects = () => {
     return <LoadingSpinner section="projects" text="Cargando proyectos..." />;
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       {/* Cabecera con título y acciones */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4 md:mb-0">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-purple-800">
           Lista de Proyectos
         </h1>
-        <div className="flex flex-col w-full md:w-auto space-y-2 md:space-y-0 md:space-x-2">
-          <div className="flex space-x-2">
+        <div className="w-full sm:w-auto flex flex-col gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <div className="relative flex-grow">
               <input
                 type="text"
                 placeholder="Buscar proyecto..."
                 value={searchTerm}
                 onChange={handleSearch}
-                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-3 sm:px-4 py-2 pr-10 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
               <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             </div>
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-lg flex items-center transition-colors"
-              title="Mostrar filtros"
-            >
-              <FaFilter className={`${showFilters ? 'text-purple-600' : 'text-gray-600'}`} />
-            </button>
-            <Link
-              to="/main/projects/new"
-              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
-            >
-              <FaPlus className="mr-2" />
-              Nuevo Proyecto
-            </Link>
+            <div className="flex gap-2 sm:gap-3">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex-1 sm:flex-none bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-lg flex items-center justify-center transition-colors"
+                title="Mostrar filtros"
+              >
+                <FaFilter className={`text-base sm:text-lg ${showFilters ? 'text-purple-600' : 'text-gray-600'}`} />
+              </button>
+              <Link
+                to="/main/projects/new"
+                className="flex-1 sm:flex-none bg-purple-600 hover:bg-purple-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors text-sm sm:text-base"
+              >
+                <FaPlus className="text-sm sm:text-base" />
+                <span>Nuevo Proyecto</span>
+              </Link>
+            </div>
           </div>
           {showFilters && (
-            <div className="bg-white p-4 rounded-lg shadow-md mt-2">
-              <div className="mb-4">
-                <h3 className="text-sm font-semibold text-gray-700 mb-2">Filtrar por:</h3>
+            <div className="bg-white p-3 sm:p-4 rounded-lg shadow-md border border-purple-100">
+              <div className="mb-3 sm:mb-4">
+                <h3 className="text-sm sm:text-base font-semibold text-gray-700 mb-2">Filtrar por:</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setFilterType('all')}
-                    className={`px-3 py-1 text-sm rounded-full ${filterType === 'all' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'all' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                   >
                     Todo
                   </button>
                   <button
                     onClick={() => setFilterType('name')}
-                    className={`px-3 py-1 text-sm rounded-full ${filterType === 'name' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'name' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                   >
                     Nombre
                   </button>
                   <button
                     onClick={() => setFilterType('client')}
-                    className={`px-3 py-1 text-sm rounded-full ${filterType === 'client' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${filterType === 'client' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                   >
                     Cliente
                   </button>
                 </div>
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-gray-700 mb-2">Mostrar:</h3>
+                <h3 className="text-sm sm:text-base font-semibold text-gray-700 mb-2">Mostrar:</h3>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setSectionFilter('both')}
-                    className={`px-3 py-1 text-sm rounded-full ${sectionFilter === 'both' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${sectionFilter === 'both' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                   >
                     Todos
                   </button>
                   <button
                     onClick={() => setSectionFilter('owner')}
-                    className={`px-3 py-1 text-sm rounded-full ${sectionFilter === 'owner' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${sectionFilter === 'owner' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                   >
                     Propietario
                   </button>
                   <button
                     onClick={() => setSectionFilter('collab')}
-                    className={`px-3 py-1 text-sm rounded-full ${sectionFilter === 'collab' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full transition-colors ${sectionFilter === 'collab' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                   >
                     Colaborador
                   </button>
@@ -175,28 +177,28 @@ const Projects = () => {
       </div>
       {/* Sección de proyectos propios */}
       {sectionFilter === 'both' || sectionFilter === 'owner' ? (
-        <section className="mb-10">
-          <div className="flex items-center gap-2 mb-4">
-            <FaFolderOpen className="text-purple-600" />
-            <h2 className="text-xl font-semibold text-purple-700">Mis proyectos</h2>
+        <section className="mb-8 sm:mb-10">
+          <div className="flex items-center gap-2 mb-3 sm:mb-4">
+            <FaFolderOpen className="text-purple-600 text-lg sm:text-xl" />
+            <h2 className="text-lg sm:text-xl font-semibold text-purple-700">Mis proyectos</h2>
           </div>
           {ownedProjects.length === 0 ? (
-            <div className="bg-gray-100 p-6 rounded-lg text-center text-gray-500">
+            <div className="bg-gray-100 p-4 sm:p-6 rounded-lg text-center text-gray-500 text-sm sm:text-base">
               No tienes proyectos propios.
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {filteredOwnedProjects.length > 0 ? (
                 filteredOwnedProjects.map((project) => (
                   <ProjectCard
                     key={project.id}
                     project={project}
-                    className="bg-white border-2 border-purple-200"
+                    className="bg-white border-2 border-purple-200 hover:shadow-md transition-shadow"
                   />
                 ))
               ) : (
-                <div className="col-span-full text-center py-10">
-                  <p className="text-gray-500 text-lg">
+                <div className="col-span-full text-center py-6 sm:py-8">
+                  <p className="text-gray-500 text-sm sm:text-base">
                     No se encontraron proyectos que coincidan con tu búsqueda.
                   </p>
                 </div>
@@ -209,27 +211,27 @@ const Projects = () => {
       {/* Sección de colaboraciones */}
       {sectionFilter === 'both' || sectionFilter === 'collab' ? (
         <section>
-          <div className="flex items-center gap-2 mb-4">
-            <FaUsers className="text-blue-600" />
-            <h2 className="text-xl font-semibold text-blue-700">Colaboraciones</h2>
+          <div className="flex items-center gap-2 mb-3 sm:mb-4">
+            <FaUsers className="text-blue-600 text-lg sm:text-xl" />
+            <h2 className="text-lg sm:text-xl font-semibold text-blue-700">Colaboraciones</h2>
           </div>
           {collabProjects.length === 0 ? (
-            <div className="bg-blue-50 p-6 rounded-lg text-center text-blue-500">
+            <div className="bg-blue-50 p-4 sm:p-6 rounded-lg text-center text-blue-500 text-sm sm:text-base">
               No colaboras en ningún proyecto.
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {filteredCollabProjects.length > 0 ? (
                 filteredCollabProjects.map((project) => (
                   <ProjectCard
                     key={project.id}
                     project={project}
-                    className="bg-blue-50 border-2 border-blue-200"
+                    className="bg-blue-50 border-2 border-blue-200 hover:shadow-md transition-shadow"
                   />
                 ))
               ) : (
-                <div className="col-span-full text-center py-10">
-                  <p className="text-gray-500 text-lg">
+                <div className="col-span-full text-center py-6 sm:py-8">
+                  <p className="text-gray-500 text-sm sm:text-base">
                     No se encontraron proyectos que coincidan con tu búsqueda.
                   </p>
                 </div>
