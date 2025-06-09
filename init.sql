@@ -1,6 +1,6 @@
 -- Create database if not exists
-CREATE DATABASE IF NOT EXISTS proyectsync;
-USE proyectsync;
+CREATE DATABASE IF NOT EXISTS projectsync;
+USE projectsync;
 
 -- Create user table
 CREATE TABLE `user` (

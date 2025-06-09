@@ -47,7 +47,7 @@ services:
       - ./TFG_Backend/public/FileRepos:/var/www/public/FileRepos
     environment:
       - APP_ENV=prod
-      - DATABASE_URL=mysql://root:@db:3306/proyectsync
+      - DATABASE_URL=mysql://root:@db:3306/projectsync
       - JWT_SECRET_KEY=/var/www/config/jwt/private.pem
       - JWT_PUBLIC_KEY=/var/www/config/jwt/public.pem
       - JWT_PASSPHRASE=projectsync
@@ -60,7 +60,7 @@ services:
     image: mysql:8.0
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_DATABASE=proyectsync
+      - MYSQL_DATABASE=projectsync
     volumes:
       - db_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
