@@ -92,9 +92,9 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex overflow-hidden border-2 border-purple-200">
+      <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex flex-col md:flex-row overflow-hidden border-2 border-purple-200">
         {/* Lado izquierdo - Formulario */}
-        <div className="w-3/5 p-6 flex flex-col justify-center">
+        <div className="w-full md:w-3/5 p-6 flex flex-col justify-center">
           <h2 className="text-2xl font-bold mb-4 text-purple-700 text-center">Registro</h2>
           <form onSubmit={handleSubmit}>
             {error && (
@@ -188,9 +188,11 @@ const Register = () => {
           </form>
         </div>
         {/* Lado derecho - Logo y título */}
-        <div className="bg-purple-700 text-white w-2/5 p-6 flex flex-col justify-center items-center">
+        <div className="bg-purple-700 text-white w-full md:w-2/5 p-6 flex flex-col justify-center items-center">
           <img src={logoFull} alt="Logo ProjectSync" className="h-14 w-auto mb-2" />
-          <p className="text-center text-purple-100 text-sm">Tu plataforma para gestionar proyectos de forma eficiente y colaborativa</p>
+          <p className="text-center text-purple-100 text-base md:text-sm">
+            Tu plataforma para gestionar proyectos de forma eficiente y colaborativa
+          </p>
         </div>
       </div>
     </div>

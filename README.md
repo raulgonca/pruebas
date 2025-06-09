@@ -1,6 +1,9 @@
 # ProjectSync
 
-ProjectSync es una aplicación web tipo red social orientada a la gestión colaborativa de proyectos, permitiendo a los usuarios crear, administrar y compartir proyectos, clientes y usuarios, con un panel de administración y funcionalidades avanzadas.
+ProjectSync es una aplicación web de gestión de proyectos diseñada para empresas que desean contar con su propio software, sin depender de soluciones de terceros. Esta fue la idea principal que dio origen al proyecto.
+
+La plataforma permite administrar proyectos, clientes y usuarios de forma centralizada. Dentro de cada proyecto se pueden gestionar diversos apartados clave, como los detalles generales, el cliente asignado, los colaboradores involucrados y los archivos relacionados.
+
 
 ## Descripción
 
@@ -130,7 +133,7 @@ Puedes desplegar el proyecto en cualquier VPS o servicio cloud compatible con Do
 
 ### Usuarios de prueba
 
-- Email: projectsync@gmail.com  
+- Email: projectsync@example.es  
   Contraseña: projectsync  
   Usuario normal
 
@@ -141,10 +144,19 @@ Puedes desplegar el proyecto en cualquier VPS o servicio cloud compatible con Do
 ## Notas importantes
 
 - La aplicación utiliza JWT para la autenticación.
-- Las imágenes de perfil se almacenan en `/var/www/public/uploads/profile_pictures` (ajusta según tu backend).
+- Los ficheros de los proyectos se almacenan en `/var/www/public/FileRepos/"carpeta con ID del  proyecto"` (ajusta según tu backend).
 - El token JWT expira después de 24 horas.
 - La API está configurada para aceptar peticiones CORS desde `http://localhost:5173` (ajusta en producción).
 - Para producción, cambia las claves y contraseñas por valores seguros.
+
+## Contacto
+
+¿Tienes dudas, sugerencias o quieres contribuir?  
+Puedes ponerte en contacto a través de:
+
+- Email: raulgo2003@gmail.com
+- [LinkedIn](https://www.linkedin.com/in/raúl-gonzález-caro-7b9ba3273)
+- También puedes abrir un issue en GitHub para reportar errores o sugerencias.
 
 ---
 

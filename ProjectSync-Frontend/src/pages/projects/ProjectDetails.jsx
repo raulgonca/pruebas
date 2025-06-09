@@ -234,17 +234,17 @@ const ProjectDetails = ({ projectId }) => {
   return (
     <div className="min-h-screen flex-1">
       {/* No sidebar aquí, lo pone la app */}
-      <main className="w-full max-w-7xl mx-auto p-4 md:p-10">
+      <main className="w-full max-w-7xl mx-auto p-2 sm:p-4 md:p-10">
         {/* Botón volver */}
         <div className="mb-6">
-          <Link to="/main/projects" className="flex items-center text-purple-600 hover:underline text-lg font-medium">
+          <Link to="/main/projects" className="flex items-center text-purple-600 hover:underline text-base sm:text-lg font-medium">
             <FaArrowLeft className="mr-2" /> Volver a proyectos
           </Link>
         </div>
         {/* Grid superior */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
           {/* Detalles del proyecto */}
-          <section className="bg-white rounded-xl border-2 border-purple-200 p-8 flex flex-col justify-between min-h-[260px]">
+          <section className="relative bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-8 flex flex-col justify-between min-h-[260px]">
             {editMode ? (
               <>
                 <input
@@ -383,9 +383,9 @@ const ProjectDetails = ({ projectId }) => {
             )}
           </section>
           {/* Columna derecha: Clientes y Colaboradores */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4 md:gap-6">
             {/* Cliente */}
-            <section className="bg-white rounded-xl border-2 border-purple-200 p-6 flex flex-col min-h-[80px]">
+            <section className="bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-6 flex flex-col min-h-[80px]">
               <h2 className="text-xl font-bold mb-2 text-purple-700">Cliente</h2>
               <div className="flex-1 flex flex-col items-start justify-center">
                 <div className="mb-2 flex items-center gap-2">
@@ -417,7 +417,7 @@ const ProjectDetails = ({ projectId }) => {
               </div>
             </section>
             {/* Colaboradores */}
-            <section className="bg-white rounded-xl border-2 border-purple-200 p-6 flex flex-col min-h-[160px]">
+            <section className="bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-6 flex flex-col min-h-[160px]">
               <h2 className="text-xl font-bold mb-2 text-purple-700">Colaboradores</h2>
               <div className="flex-1 overflow-auto max-h-40">
                 <ul className="space-y-2">
@@ -462,12 +462,12 @@ const ProjectDetails = ({ projectId }) => {
           </div>
         </div>
         {/* Sección de ficheros */}
-        <section className="bg-white rounded-xl border-2 border-purple-200 p-8 mt-8 min-h-[200px] shadow-sm">
-          <div className="flex items-center justify-between mb-6">
+        <section className="bg-white rounded-xl border-2 border-purple-200 p-4 sm:p-8 mt-6 md:mt-8 min-h-[200px] shadow-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
             <h2 className="text-2xl font-extrabold text-purple-700 flex items-center gap-2 tracking-tight">
               <FaFolderOpen /> Ficheros
             </h2>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <label
                 className="flex items-center bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold transition cursor-pointer shadow"
                 style={{ marginBottom: 0 }}
@@ -496,7 +496,7 @@ const ProjectDetails = ({ projectId }) => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full border-separate border-spacing-y-2">
+              <table className="min-w-full border-separate border-spacing-y-2 text-xs sm:text-sm">
                 <thead>
                   <tr>
                     <th className="text-sm font-bold text-purple-700 px-2 text-left uppercase tracking-wide">Nombre</th>
