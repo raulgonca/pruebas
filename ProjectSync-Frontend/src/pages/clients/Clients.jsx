@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { clientService } from '../../services/api';
 import ClientCard from '../../components/ClientCard/ClientCard';
 import ClientModal from '../../components/ClientModal/ClientModal';
 import { FaPlus, FaSearch, FaFilter, FaFileExport, FaFileImport } from 'react-icons/fa';
-import LoadingSpinner from '../../components/LoadingSpinner'; // Nuevo loader
+import LoadingSpinner from '../../components/LoadingSpinner'; 
 import { toast } from 'react-toastify';
 
 const Clients = () => {
@@ -104,6 +104,10 @@ const Clients = () => {
 
   // Función para crear cliente (nuevo)
   const handleCreateClient = () => {
+    if (!isAdmin) {
+      toast.warning('No tienes permisos para crear clientes.');
+      return;
+    }
     setEditClient(null); // Asegura que no hay cliente a editar
     setIsModalOpen(true); // Abre el modal en modo "nuevo"
   };
@@ -175,8 +179,6 @@ const Clients = () => {
           <p>Primera línea: Nombre,CIF,Teléfono,Email,Web</p>
           <p>Ejemplo:</p>
           <p className="text-sm">"Empresa A","B12345678","912345678","empresa@a.com","www.empresaa.com"</p>
-          <p className="text-sm mt-1">"Empresa B","B87654321","987654321","empresa@b.com","www.empresab.com"</p>
-          <p className="text-xs mt-2">* Nombre y CIF son obligatorios. Los demás campos son opcionales.</p>
         </div>,
         { autoClose: 10000 }
       );
@@ -327,9 +329,12 @@ const Clients = () => {
           )}
         </div>
       ) : (
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-2 w-full">
           {filteredClients.map((client) => (
-            <div key={client.id} className="w-full">
+            <div
+              key={client.id}
+              className="w-full border-2 border-purple-200 rounded-xl bg-white"
+            >
               <ClientCard
                 client={client}
                 onEdit={isAdmin ? handleEditClient : undefined}
