@@ -243,7 +243,7 @@ const Clients = () => {
                 title="Mostrar filtros"
               >
                 <FaFilter className={`${showFilters ? 'text-purple-600' : 'text-gray-600'} mr-1`} />
-                Filtros
+                
               </button>
               
               <button 
