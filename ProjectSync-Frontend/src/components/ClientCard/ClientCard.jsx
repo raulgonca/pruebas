@@ -16,8 +16,8 @@ const ClientCard = ({ client, onEdit }) => {
     : false;
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 my-3 overflow-hidden w-full border border-gray-200">
-      <div className="flex flex-col md:flex-row relative">
+    <div className="bg-white border-2 border-purple-200 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 my-3 overflow-hidden w-full p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col md:flex-row relative w-full">
         {/* Botón editar solo para admin */}
         {isAdmin && onEdit && (
           <button
