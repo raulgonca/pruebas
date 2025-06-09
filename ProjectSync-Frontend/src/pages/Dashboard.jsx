@@ -114,7 +114,9 @@ const Dashboard = () => {
 
   return (
     <div className="p-4 sm:p-6 max-w-7xl mx-auto">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-purple-800">Panel de Administración</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-6">
+        Panel de Administración
+      </h1>
       {/* Responsive: en móvil apilado, en desktop dos columnas */}
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 mb-6">
         {/* Izquierda: 3 gráficos doughnut en columna */}

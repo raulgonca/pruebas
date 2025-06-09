@@ -44,7 +44,9 @@ const UserDashboard = () => {
 
   return (
     <div className="p-4 sm:p-6 max-w-7xl mx-auto">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-purple-800">Mi Panel</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-6">
+        Mi Panel de Usuario
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <div className="bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl shadow p-3 sm:p-4 flex flex-col items-center text-white border-2 border-purple-200">
           <FaFolderOpen className="text-xl sm:text-2xl mb-1" />

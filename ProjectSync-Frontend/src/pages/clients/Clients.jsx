@@ -219,7 +219,9 @@ const Clients = () => {
     <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       {/* Cabecera con título y acciones */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-        <h1 className="text-2xl font-extrabold text-purple-700 mb-6">Clientes</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-purple-800">
+          Lista de Clientes
+        </h1>
         
         <div className="w-full md:w-auto flex flex-col gap-3">
           <div className="flex flex-wrap gap-2">
