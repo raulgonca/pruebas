@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import Button from '../../components/Button';
 
 // Importa aquí tu logo o usa un placeholder
 // import Logo from '../../assets/logo.png';
@@ -146,17 +147,13 @@ const Login = () => {
             </div>
 
             <div className="mb-6">
-              <button
+              <Button
                 type="submit"
-                disabled={loading}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors disabled:opacity-50"
+                isLoading={loading}
+                className="w-full"
               >
-                {loading ? (
-                  <LoadingSpinner section="users" text="Iniciando sesión..." />
-                ) : (
-                  'Iniciar sesión'
-                )}
-              </button>
+                Iniciar sesión
+              </Button>
             </div>
 
             <div className="text-center">

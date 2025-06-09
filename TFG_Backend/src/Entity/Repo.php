@@ -28,14 +28,8 @@ class Repo
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fechaFin = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $file = null;
-
     #[ORM\ManyToOne(inversedBy: 'repos')]
     private ?User $owner = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $fileName = null;
 
     #[ORM\ManyToOne(targetEntity: Client::class)]
     private ?Client $client = null;
@@ -102,18 +96,6 @@ class Repo
         return $this;
     }
 
-    public function getFile(): ?string
-    {
-        return $this->file;
-    }
-
-    public function setFile(?string $file): static
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -122,18 +104,6 @@ class Repo
     public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
-
-        return $this;
-    }
-
-    public function getFileName(): ?string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileName(string $fileName): static
-    {
-        $this->fileName = $fileName;
 
         return $this;
     }

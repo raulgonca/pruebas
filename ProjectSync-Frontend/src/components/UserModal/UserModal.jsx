@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaTimes, FaInfoCircle, FaUser, FaEnvelope, FaLock, FaIdCard, FaUserTag } from 'react-icons/fa';
+import Button from '../Button';
 
 const UserModal = ({ isOpen, onClose, onSave, existingUsers, userToEdit }) => {
   const initialFormData = {
@@ -242,20 +243,19 @@ const UserModal = ({ isOpen, onClose, onSave, existingUsers, userToEdit }) => {
           </div>
           
           <div className="flex justify-end space-x-3 pt-2 border-t border-gray-200">
-            <button
+            <Button
               type="button"
+              variant="secondary"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors flex items-center"
             >
               <FaTimes className="mr-1" /> Cancelar
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
-              disabled={isSubmitting}
-              className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors disabled:bg-purple-400 flex items-center"
+              isLoading={isSubmitting}
             >
               {isSubmitting ? 'Guardando...' : 'Guardar Usuario'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

@@ -89,5 +89,5 @@ class ProjectFile
     {
         return $this->originalName . ' (' . $this->fileName . ')';
     }
-   
+
 }

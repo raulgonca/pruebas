@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaSave, FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import LoadingSpinner from '../../components/LoadingSpinner'; // Nuevo loader
+import Button from '../../components/Button';
 
 const ProjectCreate = () => {
   const [form, setForm] = useState({
@@ -180,22 +181,14 @@ const ProjectCreate = () => {
                 ))}
               </select>
             </div>
-            <button
+            <Button
               type="submit"
-              disabled={loading}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center justify-center font-semibold text-lg transition"
+              isLoading={loading}
+              className="w-full"
             >
-              {loading ? (
-                <>
-                  <LoadingSpinner section="projects" text="Guardando..." />
-                </>
-              ) : (
-                <>
-                  <FaSave className="mr-2" />
-                  Crear proyecto
-                </>
-              )}
-            </button>
+              <FaSave className="mr-2" />
+              Crear proyecto
+            </Button>
           </form>
         </div>
       </div>

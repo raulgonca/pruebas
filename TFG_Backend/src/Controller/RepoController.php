@@ -42,7 +42,6 @@ final class RepoController extends AbstractController
                 'description' => $repo->getDescription(),
                 'fechaInicio' => $repo->getFechaInicio()->format('Y-m-d'),
                 'fechaFin' => $repo->getFechaFin() ? $repo->getFechaFin()->format('Y-m-d') : null,
-                'fileName' => $repo->getFileName(),
                 'client' => $client ? [
                     'id' => $client->getId(),
                     'name' => $client->getName()
@@ -76,22 +75,6 @@ final class RepoController extends AbstractController
 
         if ($fechaFin) {
             $repo->setFechaFin(new \DateTime($fechaFin));
-        }
-
-        // Manejo del archivo
-        $uploadedFile = $request->files->get('file');
-        if ($uploadedFile) {
-            $originalName = $uploadedFile->getClientOriginalName();
-            $safeName = uniqid().'-'.$originalName;
-            $uploadDir = $this->getParameter('kernel.project_dir') . '/public/FileRepos';
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-            $uploadedFile->move($uploadDir, $safeName);
-            $repo->setFileName($safeName);
-        } else {
-            // Si no hay archivo, asigna un string vacío o un valor por defecto
-            $repo->setFileName('');
         }
 
         if ($client) {
@@ -176,19 +159,6 @@ final class RepoController extends AbstractController
 
         if (array_key_exists('fechaFin', $data)) {
             $repo->setFechaFin($data['fechaFin'] ? new \DateTime($data['fechaFin']) : null);
-        }
-
-        // Manejo de archivo si viene por FormData
-        $uploadedFile = $request->files->get('file');
-        if ($uploadedFile) {
-            $originalName = $uploadedFile->getClientOriginalName();
-            $safeName = uniqid().'-'.$originalName;
-            $uploadDir = $this->getParameter('kernel.project_dir') . '/public/FileRepos';
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-            $uploadedFile->move($uploadDir, $safeName);
-            $repo->setFileName($safeName);
         }
 
         if (array_key_exists('client', $data)) {
@@ -359,7 +329,6 @@ final class RepoController extends AbstractController
                 'description' => $repo->getDescription(),
                 'fechaInicio' => $repo->getFechaInicio()->format('Y-m-d'),
                 'fechaFin' => $repo->getFechaFin() ? $repo->getFechaFin()->format('Y-m-d') : null,
-                'fileName' => $repo->getFileName(),
                 'client' => $client ? [
                     'id' => $client->getId(),
                     'name' => $client->getName()
@@ -388,7 +357,6 @@ final class RepoController extends AbstractController
                 'description' => $repo->getDescription(),
                 'fechaInicio' => $repo->getFechaInicio() ? $repo->getFechaInicio()->format('Y-m-d') : null,
                 'fechaFin' => $repo->getFechaFin() ? $repo->getFechaFin()->format('Y-m-d') : null,
-                'fileName' => $repo->getFileName(),
                 'client' => $client ? [
                     'id' => $client->getId(),
                     'name' => $client->getName()
@@ -418,7 +386,6 @@ final class RepoController extends AbstractController
             'description' => $repo->getDescription(),
             'fechaInicio' => $repo->getFechaInicio()->format('Y-m-d'),
             'fechaFin' => $repo->getFechaFin() ? $repo->getFechaFin()->format('Y-m-d') : null,
-            'fileName' => $repo->getFileName(),
             'owner' => $owner ? [
                 'id' => $owner->getId(),
                 'username' => $owner->getUsername()
@@ -441,15 +408,8 @@ final class RepoController extends AbstractController
     #[Route('/repo/{id}/download', name: 'download_repo_file', methods: ['GET'])]
     public function downloadRepoFile(int $id): Response
     {
-        $repo = $this->entityManager->getRepository(Repo::class)->find($id);
-        if (!$repo || !$repo->getFileName()) {
-            throw $this->createNotFoundException('Archivo no encontrado');
-        }
-        $filePath = $this->getParameter('kernel.project_dir') . '/public/FileRepos/' . $repo->getFileName();
-        if (!file_exists($filePath)) {
-            throw $this->createNotFoundException('Archivo no encontrado');
-        }
-        return $this->file($filePath, $repo->getFileName());
+        // Como ya no hay archivo asociado al repo, este endpoint no tiene sentido
+        throw $this->createNotFoundException('Archivo no encontrado');
     }
 
     #[Route('/user/{id}/projects', name: 'user_projects', methods: ['GET'])]
