@@ -5,6 +5,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import Button from '../../components/Button';
 import logoFull from '../../assets/LogoTFG.png';
 import { toast } from 'react-toastify';
+import { authService } from '../../services/api';
 
 // Importa aquí tu logo o usa un placeholder
 // import Logo from '../../assets/logo.png';
@@ -19,7 +20,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { register, currentUser } = useAuth();
+  const { currentUser } = useAuth();
 
   // Si ya está autenticado, redirigir
   if (currentUser) {
@@ -78,7 +79,7 @@ const Register = () => {
         password: userData.password
       };
 
-      await register(dataToSend);
+      await authService.register(dataToSend);
       toast.success('Usuario registrado con éxito');
       navigate('/login');
     } catch (error) {
