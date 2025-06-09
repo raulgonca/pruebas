@@ -264,13 +264,24 @@ const Clients = () => {
               <label 
                 className={`bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg flex items-center transition-colors cursor-pointer text-sm sm:text-base whitespace-nowrap ${importing ? 'opacity-50 cursor-not-allowed' : ''}`} 
                 title="Importar clientes desde CSV"
+                onClick={() => {
+                  if (!isAdmin) {
+                    toast.warning('No tienes permisos para importar clientes.');
+                  }
+                }}
               >
                 <FaFileImport className="mr-1 sm:mr-2" /> 
                 {importing ? 'Importando...' : 'Importar'}
                 <input
                   type="file"
                   accept=".csv"
-                  onChange={handleImportCSV}
+                  onChange={e => {
+                    if (!isAdmin) {
+                      e.preventDefault();
+                      return;
+                    }
+                    handleImportCSV(e);
+                  }}
                   className="hidden"
                   disabled={importing}
                 />
@@ -329,7 +340,7 @@ const Clients = () => {
           )}
         </div>
       ) : (
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-1 w-full">
           {filteredClients.map((client) => (
             <div
               key={client.id}
