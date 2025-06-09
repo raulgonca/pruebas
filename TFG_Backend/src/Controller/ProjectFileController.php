@@ -25,7 +25,7 @@ class ProjectFileController extends AbstractController
      * GET /api/projects/{projectId}/files/download-zip
      */
     #[Route('/projects/{projectId}/files/download-zip', name: 'download_project_files_zip', methods: ['GET'])]
-    public function downloadZip(int $projectId, EntityManagerInterface $em): Response
+    public function downloadZip(Request $request, int $projectId, EntityManagerInterface $em): Response
     {
         try {
             // Verificar que la extensión zip está cargada
@@ -38,10 +38,38 @@ class ProjectFileController extends AbstractController
                 throw new \Exception('La clase ZipArchive no está disponible');
             }
 
+            // Verificar autenticación (token en header o query param)
+            $token = $request->query->get('token') ?? $request->headers->get('Authorization');
+            if (!$token) {
+                throw $this->createAccessDeniedException('No se proporcionó token de autenticación');
+            }
+
+            // Si el token viene en el header, quitar el prefijo 'Bearer '
+            if (strpos($token, 'Bearer ') === 0) {
+                $token = substr($token, 7);
+            }
+
+            // Verificar el token y obtener el usuario
+            try {
+                $user = $this->getUser();
+                if (!$user) {
+                    throw $this->createAccessDeniedException('Token inválido o expirado');
+                }
+            } catch (\Exception $e) {
+                throw $this->createAccessDeniedException('Token inválido o expirado');
+            }
+
             // Busca el proyecto
             $project = $em->getRepository(\App\Entity\Repo::class)->find($projectId);
             if (!$project) {
                 throw $this->createNotFoundException('Proyecto no encontrado');
+            }
+
+            // Verificar permisos (usuario debe ser propietario o colaborador)
+            $isOwner = $user->getId() === $project->getOwner()->getId();
+            $isCollaborator = $project->getColaboradores()->contains($user);
+            if (!$isOwner && !$isCollaborator) {
+                throw $this->createAccessDeniedException('No tienes permisos para descargar este proyecto');
             }
 
             // Busca los ficheros asociados al proyecto

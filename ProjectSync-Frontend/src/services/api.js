@@ -563,35 +563,9 @@ export const projectFileService = {
   // Descargar todos los archivos en ZIP
   downloadAllFilesZip: async (projectId) => {
     const API_URL = import.meta.env.VITE_URL_API;
-    const url = `${API_URL}/api/projects/${projectId}/files/download-zip`;
     const user = JSON.parse(localStorage.getItem('user'));
-    
-    if (!user?.token) {
-      throw new Error('No hay token de autenticación');
-    }
-
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`
-        }
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error('No autorizado. Inicia sesión de nuevo.');
-        }
-        if (response.status === 403) {
-          throw new Error('No tienes permisos para descargar el ZIP.');
-        }
-        throw new Error('Error al descargar el ZIP');
-      }
-
-      return await response.blob();
-    } catch (error) {
-      console.error('Error en downloadAllFilesZip:', error);
-      throw error;
-    }
+    if (!user?.token) throw new Error('No hay token de autenticación');
+    window.open(`${API_URL}/api/projects/${projectId}/files/download-zip?token=${user.token}`, '_blank');
   },
   // Eliminar un archivo de un proyecto
   deleteFile: async (projectId, fileId) => {
