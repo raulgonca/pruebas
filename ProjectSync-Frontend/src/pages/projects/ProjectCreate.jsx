@@ -41,38 +41,29 @@ const ProjectCreate = () => {
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append('projectname', form.projectname);
-      formData.append('description', form.description);
-      formData.append('fechaInicio', form.fechaInicio);
-      formData.append('fechaFin', form.fechaFin);
-      formData.append('client', form.client);
+      // Añadir los campos del formulario al FormData
+      Object.keys(form).forEach(key => {
+        formData.append(key, form[key]);
+      });
+
+      // Añadir archivos si existen
+      if (selectedFiles.length > 0) {
+        selectedFiles.forEach(file => {
+          formData.append('files', file);
+        });
+      }
+
       // Añadir el owner desde el usuario logueado
       const user = JSON.parse(localStorage.getItem('user'));
       if (user && user.id) {
         formData.append('owner', user.id);
       }
 
-      // Añadir logs detallados
-      console.log('Valores del formulario:', {
-        projectname: form.projectname,
-        description: form.description,
-        fechaInicio: form.fechaInicio,
-        fechaFin: form.fechaFin,
-        client: form.client,
-        owner: user?.id
-      });
-
-      // Log del contenido del FormData
-      console.log('Contenido del FormData:');
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-      }
-
       await repoService.createRepo(formData);
       toast.success('Repositorio creado con éxito');
       navigate('/main/projects');
-    } catch (err) {
-      toast.error('Error al crear el repositorio' + err.message);
+    } catch (error) {
+      toast.error('Error al crear el repositorio: ' + error.message);
     } finally {
       setLoading(false);
     }

@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import Button from '../../components/Button';
 import logoFull from '../../assets/LogoTFG.png';
+import { toast } from 'react-hot-toast';
 
 // Importa aquí tu logo o usa un placeholder
 // import Logo from '../../assets/logo.png';
@@ -68,36 +69,20 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
-    // Validar formulario
-    if (!validateForm()) {
-      return;
-    }
-    
     setLoading(true);
-    
+
     try {
-      // Eliminar confirmPassword antes de enviar
-      const { confirmPassword: _, ...registerData } = userData;
-      
-      // Asegurarse de que los campos coincidan con lo que espera el backend
       const dataToSend = {
-        email: registerData.email.trim(),
-        username: registerData.username.trim(),
-        password: registerData.password
+        username: userData.username,
+        email: userData.email,
+        password: userData.password
       };
-      
-      console.log('Datos a enviar:', dataToSend);
-      
+
       await register(dataToSend);
-      console.log('Usuario registrado con éxito');
-      
-      // Mostrar mensaje de éxito y redirigir al login
-      alert('Usuario registrado con éxito. Por favor, inicia sesión.');
+      toast.success('Usuario registrado con éxito');
       navigate('/login');
-    } catch (err) {
-      console.error('Error completo:', err);
-      setError(err.message || 'Error al registrar usuario');
+    } catch (error) {
+      setError(error.message);
     } finally {
       setLoading(false);
     }

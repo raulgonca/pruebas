@@ -39,27 +39,14 @@ const Login = () => {
     }
 
     try {
-      console.log('Intentando login con:', { email: credentials.email });
       const response = await login(credentials.email, credentials.password);
-      console.log('Login exitoso:', response);
-
-      // Verificar roles y redirigir
       const roles = response.user?.roles || [];
-      const isAdmin = Array.isArray(roles)
-        ? roles.some(r => r === 'ROLE_ADMIN' || r.authority === 'ROLE_ADMIN')
-        : false;
+      const isAdmin = roles.includes('ROLE_ADMIN');
 
-      console.log('Roles del usuario:', roles);
-      console.log('¿Es admin?:', isAdmin);
-
-      if (isAdmin) {
-        navigate('/main/dashboard');
-      } else {
-        navigate('/main/user-dashboard');
-      }
-    } catch (err) {
-      console.error('Error en login:', err);
-      setError(err.message || 'Error al iniciar sesión. Verifica tus credenciales.');
+      // Redirigir según el rol
+      navigate(isAdmin ? '/main/dashboard' : '/main/user-dashboard');
+    } catch (error) {
+      setError(error.message);
     } finally {
       setLoading(false);
     }

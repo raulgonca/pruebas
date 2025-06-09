@@ -6,7 +6,6 @@ const BASE_API_URL = `${API_URL}/api`;
 const fetchFromAPI = async (endpoint, options = {}) => {
   try {
     const url = `${BASE_API_URL}${endpoint}`;
-    console.log('URL de la petición:', url);
     
     const headers = {
       'Accept': 'application/json',
@@ -29,35 +28,23 @@ const fetchFromAPI = async (endpoint, options = {}) => {
     // Preparar el body si existe
     let body = options.body;
     if (body && !(body instanceof FormData)) {
-      if (typeof body === 'string') {
-        console.log('Body ya es string:', body);
-      } else {
+      if (typeof body !== 'string') {
         body = JSON.stringify(body);
-        console.log('Body convertido a string:', body);
       }
     }
-
-    console.log('Opciones de la petición:', {
-      method: options.method,
-      headers,
-      body: body instanceof FormData ? '[FormData]' : body
-    });
 
     const response = await fetch(url, {
       method: options.method || 'GET',
       headers,
       body
-      // credentials: 'include' // Eliminado porque el backend no usa cookies
     });
 
     // Obtener el texto de la respuesta
     const responseText = await response.text();
-    console.log('Texto de la respuesta:', responseText);
     
     let data;
     try {
       data = responseText ? JSON.parse(responseText) : {};
-      console.log('Respuesta del servidor parseada:', data);
     } catch {
       console.error('Error al parsear la respuesta JSON:', responseText);
       throw new Error('Error al procesar la respuesta del servidor');
@@ -67,7 +54,6 @@ const fetchFromAPI = async (endpoint, options = {}) => {
     if (!response.ok) {
       // Si es 401, elimina el usuario del localStorage y redirige al login
       if (response.status === 401) {
-        console.log('Error 401: Token inválido o expirado');
         localStorage.removeItem('user');
         // Usar setTimeout para evitar problemas de navegación durante el manejo de errores
         setTimeout(() => {
@@ -104,8 +90,6 @@ export const authService = {
       if (!email || !password) {
         throw new Error('Email y contraseña son requeridos');
       }
-
-      console.log('Enviando solicitud de login con:', { email, password });
       
       const response = await fetchFromAPI('/login', {
         method: 'POST',
@@ -115,8 +99,6 @@ export const authService = {
         },
         requiresAuth: false
       });
-
-      console.log('Respuesta del servidor:', response);
 
       if (!response || !response.token) {
         console.error('Respuesta inválida del servidor:', response);
@@ -133,7 +115,6 @@ export const authService = {
       };
 
       localStorage.setItem('user', JSON.stringify(userData));
-      console.log('Usuario guardado en localStorage:', userData);
 
       return response;
     } catch (error) {
@@ -170,16 +151,13 @@ export const authService = {
     try {
       const userData = localStorage.getItem('user');
       if (!userData) {
-        console.log('No hay datos de usuario en localStorage');
         return null;
       }
       
       const parsedUser = JSON.parse(userData);
-      console.log('Datos de usuario recuperados:', parsedUser);
 
       // Verificar que tenemos los datos mínimos necesarios
       if (!parsedUser || !parsedUser.token) {
-        console.log('Datos de usuario inválidos en localStorage:', parsedUser);
         localStorage.removeItem('user');
         return null;
       }
@@ -197,7 +175,6 @@ export const authService = {
               localStorage.setItem('user', JSON.stringify(parsedUser));
             } else {
               // Si no hay ID en el token, obtener datos del servidor
-              console.log('Obteniendo datos del usuario...');
               return fetchFromAPI('/user/me', {
                 headers: {
                   'Authorization': `Bearer ${parsedUser.token}`
@@ -239,16 +216,12 @@ export const authService = {
 
   isAuthenticated: () => {
     const user = authService.getCurrentUser();
-    const isAuth = !!user && !!user.token;
-    console.log('Verificación de autenticación:', { isAuth, user });
-    return isAuth;
+    return !!user && !!user.token;
   },
 
   hasRole: (role) => {
     const user = authService.getCurrentUser();
-    const hasRole = user && Array.isArray(user.roles) && user.roles.includes(role);
-    console.log('Verificación de rol:', { role, hasRole, userRoles: user?.roles });
-    return hasRole;
+    return user && Array.isArray(user.roles) && user.roles.includes(role);
   }
 };
 
@@ -366,7 +339,6 @@ export const projectService = {
   getUserProjects: async () => {
     const user = authService.getCurrentUser();
     if (!user || !user.id) {
-      console.error('Usuario no autenticado o sin ID:', user);
       throw new Error('Usuario no autenticado');
     }
     return await fetchFromAPI(`/user/${user.id}/projects`);
@@ -375,7 +347,6 @@ export const projectService = {
   getUserCollaborations: async () => {
     const user = authService.getCurrentUser();
     if (!user || !user.id) {
-      console.error('Usuario no autenticado o sin ID:', user);
       throw new Error('Usuario no autenticado');
     }
     return await fetchFromAPI(`/user/${user.id}/collaborations`);
@@ -425,27 +396,14 @@ export const clientService = {
         throw new Error('El archivo es demasiado grande. Máximo 1MB permitido.');
       }
 
-      console.log('Iniciando importación de CSV:', {
-        nombre: file.name,
-        tamaño: file.size,
-        tipo: file.type
-      });
-
       const formData = new FormData();
-      formData.append('file', file, file.name); // Añadir el nombre del archivo
-
-      // Verificar que el archivo se añadió correctamente al FormData
-      console.log('FormData entries:');
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
+      formData.append('file', file, file.name);
 
       const response = await fetchFromAPI('/clients/import', {
         method: 'POST',
         body: formData
       });
 
-      console.log('Respuesta de importación:', response);
       return response;
     } catch (error) {
       console.error('Error en importClientsFromCSV:', error);
