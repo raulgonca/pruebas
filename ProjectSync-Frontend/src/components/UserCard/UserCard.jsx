@@ -53,7 +53,7 @@ const UserCard = ({ user, onEdit, onDelete, confirmDelete }) => {
   };
 
   return (
-    <div className="bg-white/40 backdrop-blur-md rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/20 p-4 sm:p-6 relative w-full max-w-[280px] sm:max-w-[300px] overflow-hidden">
+    <div className="bg-white/40 backdrop-blur-md rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-purple-300 p-4 sm:p-6 relative w-full max-w-[280px] sm:max-w-[300px] overflow-hidden">
       {isAdmin && (
         <>
           {/* Botón Editar a la izquierda */}

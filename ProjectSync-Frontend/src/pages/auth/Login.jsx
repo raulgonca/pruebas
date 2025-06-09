@@ -74,88 +74,94 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-purple-300">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <div className="flex flex-col items-center mb-6">
-          <img src={logoFull} alt="Logo ProjectSync" className="h-16 w-auto mb-2" />
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex overflow-hidden">
+        {/* Lado izquierdo - Logo y título */}
+        <div className="bg-purple-700 text-white w-2/5 p-8 flex flex-col justify-center items-center">
+          <img src={logoFull} alt="Logo ProjectSync" className="h-28 w-auto mb-4" />
+          <h1 className="text-3xl font-bold mb-2">ProjectSync</h1>
+          <p className="text-center text-purple-100">Tu plataforma para gestionar proyectos de forma eficiente y colaborativa</p>
         </div>
-        <h2 className="text-2xl font-bold mb-6 text-purple-700 text-center">Iniciar sesión</h2>
-        <form onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-              {error}
-            </div>
-          )}
+        {/* Lado derecho - Formulario */}
+        <div className="w-3/5 p-8 flex flex-col justify-center">
+          <h2 className="text-2xl font-bold mb-6 text-purple-700 text-center">Iniciar sesión</h2>
+          <form onSubmit={handleSubmit}>
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {error}
+              </div>
+            )}
 
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-              Correo electrónico
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={credentials.email}
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="ejemplo@correo.com"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-              Contraseña
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="••••••••"
-              required
-            />
-          </div>
-
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center">
-              <input
-                id="remember"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember" className="ml-2 block text-sm text-gray-900">
-                Recordarme
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+                Correo electrónico
               </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={credentials.email}
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="ejemplo@correo.com"
+                required
+              />
             </div>
-            <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                ¿Olvidaste tu contraseña?
-              </a>
+
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+                Contraseña
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={credentials.password}
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="••••••••"
+                required
+              />
             </div>
-          </div>
 
-          <div className="mb-6">
-            <Button
-              type="submit"
-              isLoading={loading}
-              className="w-full"
-            >
-              Iniciar sesión
-            </Button>
-          </div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center">
+                <input
+                  id="remember"
+                  type="checkbox"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label htmlFor="remember" className="ml-2 block text-sm text-gray-900">
+                  Recordarme
+                </label>
+              </div>
+              <div className="text-sm">
+                <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </div>
+            </div>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              ¿No tienes una cuenta?{' '}
-              <Link to="/register" className="font-medium text-purple-600 hover:text-purple-500">
-                Regístrate aquí
-              </Link>
-            </p>
-          </div>
-        </form>
+            <div className="mb-6">
+              <Button
+                type="submit"
+                isLoading={loading}
+                className="w-full"
+              >
+                Iniciar sesión
+              </Button>
+            </div>
+
+            <div className="text-center">
+              <p className="text-sm text-gray-600">
+                ¿No tienes una cuenta?{' '}
+                <Link to="/register" className="font-medium text-purple-600 hover:text-purple-500">
+                  Regístrate aquí
+                </Link>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
