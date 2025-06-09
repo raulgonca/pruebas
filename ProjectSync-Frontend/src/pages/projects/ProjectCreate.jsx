@@ -46,12 +46,7 @@ const ProjectCreate = () => {
         formData.append(key, form[key]);
       });
 
-      // Añadir archivos si existen
-      if (selectedFiles.length > 0) {
-        selectedFiles.forEach(file => {
-          formData.append('files', file);
-        });
-      }
+      
 
       // Añadir el owner desde el usuario logueado
       const user = JSON.parse(localStorage.getItem('user'));
@@ -66,35 +61,6 @@ const ProjectCreate = () => {
       toast.error('Error al crear el repositorio: ' + error.message);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleDownloadAll = async () => {
-    const API_URL = import.meta.env.VITE_URL_API;
-    const url = `${API_URL}/api/projects/${id}/files/download-zip`;
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user?.token;
-
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (!response.ok) {
-        throw new Error('No se pudo descargar el ZIP');
-      }
-      const blob = await response.blob();
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = downloadUrl;
-      a.download = 'archivos_proyecto.zip';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(downloadUrl);
-    } catch (err) {
-      toast.error('Error al descargar el ZIP');
     }
   };
 
