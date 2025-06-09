@@ -75,7 +75,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex overflow-hidden">
+      <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex overflow-hidden border-2 border-purple-200">
         {/* Lado izquierdo - Logo y título */}
         <div className="bg-purple-700 text-white w-2/5 p-8 flex flex-col justify-center items-center">
           <img src={logoFull} alt="Logo ProjectSync" className="h-28 w-auto mb-4" />

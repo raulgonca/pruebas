@@ -105,7 +105,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex overflow-hidden">
+      <div className="bg-white rounded-lg shadow-md w-full max-w-3xl flex overflow-hidden border-2 border-purple-200">
         {/* Lado izquierdo - Formulario */}
         <div className="w-3/5 p-8 flex flex-col justify-center">
           <h2 className="text-2xl font-bold mb-6 text-purple-700 text-center">Registro</h2>
