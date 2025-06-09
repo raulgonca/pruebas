@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logoFull from '../assets/LogoTFG.png';
+import logoIcon from '../assets/LogitoTFG.png';
 // Importa los iconos de react-icons
 import { FaTachometerAlt, FaFolderOpen, FaUsers, FaBuilding, FaChevronLeft, FaChevronRight, FaUser } from 'react-icons/fa';
-
-// Importa aquí tu logo o usa un placeholder
-// import Logo from '../assets/logo.png';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -86,15 +85,13 @@ const Sidebar = () => {
       {/* Logo y título */}
       <div className="p-4 flex items-center justify-center">
         {!collapsed && (
-          <div className="flex items-center">
-            {/* <img src={Logo} alt="ProjectSync Logo" className="h-8 w-8 mr-2" /> */}
-            <h1 className="text-xl font-bold">ProjectSync</h1>
+          <div className="flex items-center gap-2">
+            <img src={logoFull} alt="ProjectSync Logo" className="h-8 w-auto max-w-[120px]" />
           </div>
         )}
         {collapsed && (
           <div className="mx-auto">
-            {/* <img src={Logo} alt="Logo" className="h-8 w-8" /> */}
-            <span className="font-bold">PS</span>
+            <img src={logoIcon} alt="Logo" className="h-8 w-8 rounded" />
           </div>
         )}
       </div>
@@ -135,27 +132,35 @@ const Sidebar = () => {
 
       {/* Perfil de usuario en la parte inferior */}
       <div className="border-t border-purple-700 px-4 py-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-lg font-bold select-none">
-            <span className="mx-auto block leading-none">{currentUser?.username?.charAt(0) || 'U'}</span>
+        {collapsed ? (
+          <div className="flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-lg font-bold select-none">
+              <span className="mx-auto block leading-none">{currentUser?.username?.charAt(0) || 'U'}</span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <Link
-              to="/main/profile"
-              className="text-base font-semibold hover:underline text-white"
-              title="Ver perfil"
-              style={{ lineHeight: 1 }}
-            >
-              {currentUser?.username || 'Usuario'}
-            </Link>
-            <button
-              className="text-xs text-gray-300 hover:text-white mt-1 text-left"
-              onClick={handleLogout}
-            >
-              Cerrar sesión
-            </button>
+        ) : (
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-lg font-bold select-none">
+              <span className="mx-auto block leading-none">{currentUser?.username?.charAt(0) || 'U'}</span>
+            </div>
+            <div className="flex flex-col">
+              <Link
+                to="/main/profile"
+                className="text-base font-semibold hover:underline text-white"
+                title="Ver perfil"
+                style={{ lineHeight: 1 }}
+              >
+                {currentUser?.username || 'Usuario'}
+              </Link>
+              <button
+                className="text-xs text-gray-300 hover:text-white mt-1 text-left"
+                onClick={handleLogout}
+              >
+                Cerrar sesión
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
