@@ -98,7 +98,6 @@ const ProjectDetails = ({ projectId }) => {
         description: editData.description,
         fechaInicio: editData.fechaInicio,
         fechaFin: editData.fechaFin,
-        // client: editData.client?.id || '', // <-- Elimina esto del payload al editar
       };
       if (fileInput) {
         const formData = new FormData();
