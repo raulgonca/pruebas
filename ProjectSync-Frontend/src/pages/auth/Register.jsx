@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import Button from '../../components/Button';
 import logoFull from '../../assets/LogoTFG.png';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 // Importa aquí tu logo o usa un placeholder
 // import Logo from '../../assets/logo.png';
@@ -83,6 +83,7 @@ const Register = () => {
       navigate('/login');
     } catch (error) {
       setError(error.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
