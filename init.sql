@@ -98,6 +98,13 @@ INSERT INTO project_file (user_id, project_id, file_name, original_name, fecha_s
 (2, 2, 'presentacion.pptx', 'presentacion_original.pptx', '2024-02-15 11:30:00'),
 (3, 3, 'contrato.docx', 'contrato_original.docx', '2024-03-15 09:15:00');
 
-CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '';
+-- Quita o comenta estas líneas si ya existen
+-- CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '';
+-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
+-- Añade estas líneas:
+ALTER USER 'root'@'localhost' IDENTIFIED BY '';
+ALTER USER 'root'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
