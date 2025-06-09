@@ -1,0 +1,89 @@
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ./TFG_Backend/public:/var/www/public
+      - ./TFG_Backend/public/FileRepos:/var/www/public/FileRepos
+    restart: always
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./ProjectSync-Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./ProjectSync-Frontend:/app
+      - /app/node_modules
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./TFG_Backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./TFG_Backend:/var/www
+      - ./TFG_Backend/public/FileRepos:/var/www/public/FileRepos
+    environment:
+      - APP_ENV=prod
+      - DATABASE_URL=mysql://root:@db:3306/proyectsync
+      - JWT_SECRET_KEY=/var/www/config/jwt/private.pem
+      - JWT_PUBLIC_KEY=/var/www/config/jwt/public.pem
+      - JWT_PASSPHRASE=projectsync
+      - APP_SECRET=projectsync_secret_key
+    networks:
+      - app-network
+    command: bash -c "composer install && php -S 0.0.0.0:8000 -t public"
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=proyectsync
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge
