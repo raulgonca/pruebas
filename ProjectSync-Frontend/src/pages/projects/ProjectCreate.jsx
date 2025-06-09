@@ -50,6 +50,23 @@ const ProjectCreate = () => {
       if (user && user.id) {
         formData.append('owner', user.id);
       }
+
+      // Añadir logs detallados
+      console.log('Valores del formulario:', {
+        projectname: form.projectname,
+        description: form.description,
+        fechaInicio: form.fechaInicio,
+        fechaFin: form.fechaFin,
+        client: form.client,
+        owner: user?.id
+      });
+
+      // Log del contenido del FormData
+      console.log('Contenido del FormData:');
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
+
       await repoService.createRepo(formData);
       toast.success('Repositorio creado con éxito');
       navigate('/main/projects');
