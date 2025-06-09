@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { clientService, repoService, projectFileService } from '../../services/api';
-import { FaArrowLeft, FaUserFriends, FaUserTie, FaDownload, FaEdit, FaSave, FaTimes, FaFileUpload, FaFolderOpen, FaPlus, FaFileArchive, FaCalendarAlt, FaUser, FaRegFileAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaUserFriends, FaUserTie, FaDownload, FaEdit, FaSave, FaTimes, FaFileUpload, FaFolderOpen, FaPlus, FaFileArchive, FaCalendarAlt, FaUser, FaRegFileAlt, FaBuilding } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import ClientSelectionModal from '../../components/ClientSelectionModal';
 import ColaboradoresModal from '../../components/ColaboradoresModal';
@@ -389,16 +389,21 @@ const ProjectDetails = ({ projectId }) => {
             <section className="bg-white rounded-xl border-2 border-purple-200 p-6 flex flex-col min-h-[80px]">
               <h2 className="text-xl font-bold mb-2 text-purple-700">Cliente</h2>
               <div className="flex-1 flex flex-col items-start justify-center">
-                <div className="mb-2">
-                  <span className="block text-base font-semibold text-gray-800">
-                    {repo.client?.name || <span className="text-gray-400">Sin cliente</span>}
-                  </span>
-                  {repo.client?.email && (
-                    <span className="block text-xs text-gray-500">{repo.client.email}</span>
+                <div className="mb-2 flex items-center gap-2">
+                  {repo.client?.name ? (
+                    <>
+                      <FaBuilding className="text-purple-400 text-lg" />
+                      <span className="block text-base font-semibold text-gray-800">{repo.client.name}</span>
+                    </>
+                  ) : (
+                    <span className="text-gray-400">Sin cliente</span>
                   )}
                 </div>
+                {repo.client?.email && (
+                  <span className="block text-xs text-gray-500">{repo.client.email}</span>
+                )}
                 <button
-                  className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg flex items-center gap-2 font-semibold shadow"
+                  className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg flex items-center justify-center gap-2 font-semibold shadow mt-3"
                   onClick={() => {
                     if (isColaboradorSolo()) {
                       toast.warning('No tienes permisos para modificar este proyecto porque eres colaborador.');
@@ -408,7 +413,7 @@ const ProjectDetails = ({ projectId }) => {
                     setShowClientModal(true);
                   }}
                 >
-                  {repo.client ? 'Cambiar cliente' : 'Asignar cliente'}
+                  <FaBuilding /> {repo.client ? 'Cambiar cliente' : 'Asignar cliente'}
                 </button>
               </div>
             </section>
