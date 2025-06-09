@@ -7,8 +7,6 @@ import logoFull from '../../assets/LogoTFG.png';
 import { toast } from 'react-toastify';
 import { authService } from '../../services/api';
 
-// Importa aquí tu logo o usa un placeholder
-// import Logo from '../../assets/logo.png';
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -92,10 +90,17 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white rounded-lg shadow-md w-full max-w-4xl flex flex-col md:flex-row overflow-hidden border-2 border-purple-200">
-        {/* Lado izquierdo - Formulario */}
-        <div className="w-full md:w-3/5 p-6 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold mb-4 text-purple-700 text-center">Registro</h2>
+      <div className="bg-white rounded-lg shadow-md w-full max-w-md md:max-w-4xl flex flex-col md:flex-row overflow-hidden border-2 border-purple-200">
+        {/* Logo y texto - arriba en móvil, derecha en desktop */}
+        <div className="bg-purple-700 text-white w-full md:w-2/5 flex flex-col items-center justify-center p-8 md:p-8 order-1 md:order-2 md:items-center md:justify-center">
+          <img src={logoFull} alt="Logo ProjectSync" className="h-14 md:h-16 w-auto mb-2 md:mb-4" />
+          <p className="text-center text-purple-100 text-base md:text-sm leading-snug">
+            Tu plataforma para gestionar proyectos de forma eficiente y colaborativa
+          </p>
+        </div>
+        {/* Formulario - debajo en móvil, izquierda en desktop */}
+        <div className="w-full md:w-3/5 flex flex-col justify-center p-6 sm:p-8 order-2 md:order-1">
+          <h2 className="text-2xl font-bold mb-6 text-purple-700 text-center">Registro</h2>
           <form onSubmit={handleSubmit}>
             {error && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -186,13 +191,6 @@ const Register = () => {
               </p>
             </div>
           </form>
-        </div>
-        {/* Lado derecho - Logo y título */}
-        <div className="bg-purple-700 text-white w-full md:w-2/5 p-6 flex flex-col justify-center items-center">
-          <img src={logoFull} alt="Logo ProjectSync" className="h-14 w-auto mb-2" />
-          <p className="text-center text-purple-100 text-base md:text-sm">
-            Tu plataforma para gestionar proyectos de forma eficiente y colaborativa
-          </p>
         </div>
       </div>
     </div>
