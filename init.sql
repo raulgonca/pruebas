@@ -67,9 +67,9 @@ CREATE INDEX idx_repo_colaboradores_user ON repo_colaboradores(user_id);
 
 -- Insert users (password is 'password' hashed)
 INSERT INTO `user` (username, email, password, roles) VALUES
-('admin', 'admin@example.com', '$2y$13$H6xP7YKU1zqX9X9X9X9X9O9X9X9X9X9X9X9X9X9X9X9X9X9X9X', '["ROLE_ADMIN"]'),
-('user1', 'user1@example.com', '$2y$13$H6xP7YKU1zqX9X9X9X9X9O9X9X9X9X9X9X9X9X9X9X9X9X9X9X', '["ROLE_USER"]'),
-('user2', 'user2@example.com', '$2y$13$H6xP7YKU1zqX9X9X9X9X9O9X9X9X9X9X9X9X9X9X9X9X9X9X9X', '["ROLE_USER"]');
+('admin', 'admin@example.com', 'admin', '["ROLE_ADMIN"]'),
+('user1', 'user1@example.com', 'user1', '["ROLE_USER"]'),
+('user2', 'user2@example.com', 'user2', '["ROLE_USER"]');
 
 -- Insert clients
 INSERT INTO client (name, cif, email, phone, web) VALUES
@@ -97,3 +97,7 @@ INSERT INTO project_file (user_id, project_id, file_name, original_name, fecha_s
 (1, 1, 'documento1.pdf', 'documento_original1.pdf', '2024-01-15 10:00:00'),
 (2, 2, 'presentacion.pptx', 'presentacion_original.pptx', '2024-02-15 11:30:00'),
 (3, 3, 'contrato.docx', 'contrato_original.docx', '2024-03-15 09:15:00');
+
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
