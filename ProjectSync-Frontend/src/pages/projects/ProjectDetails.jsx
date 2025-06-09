@@ -349,7 +349,7 @@ const ProjectDetails = ({ projectId }) => {
                     </div>
                   </div>
                   {/* Fechas en columna mejoradas */}
-                  <div className="flex flex-col sm:flex-row gap-3 mb-10 ml-2">
+                  <div className="flex flex-col sm:flex-row gap-3 mb-10 ml-2 justify-center items-center">
                     <div className="flex-1 flex flex-col items-center bg-purple-50 rounded-lg px-4 py-2 shadow border-2 border-purple-100 min-w-[120px] max-w-[180px]">
                       <div className="flex items-center gap-2 mb-1">
                         <FaCalendarAlt className="text-purple-400" />
@@ -368,7 +368,7 @@ const ProjectDetails = ({ projectId }) => {
                   {/* Botón editar */}
                   <div className="flex justify-end mt-2">
                     <button
-                      className="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-7 py-2.5 rounded-xl text-lg flex items-center gap-2 shadow-lg font-bold transition-all duration-150"
+                      className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg flex items-center justify-center gap-2 font-semibold shadow"
                       onClick={() => {
                         if (isColaboradorSolo()) {
                           toast.warning('No tienes permisos para modificar este proyecto porque eres colaborador.');
