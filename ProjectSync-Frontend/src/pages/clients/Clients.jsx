@@ -333,7 +333,7 @@ const Clients = () => {
           {filteredClients.map((client) => (
             <div
               key={client.id}
-              className="w-full border-2 border-purple-200 rounded-xl bg-white"
+              className="w-full"
             >
               <ClientCard
                 client={client}
