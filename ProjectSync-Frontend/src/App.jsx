@@ -13,10 +13,8 @@ function App() {
       {/* Contenido principal */}
       <main className="flex-1 overflow-y-auto p-6">
         <Outlet className="bg-white" />
-        {/* Añade la ruta si usas rutas anidadas, o en tu archivo de rutas principal */}
-        {/* <Route path="/main/user-dashboard" element={<UserDashboard />} /> */}
       </main>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={2000} />
     </div>
   );
 }

@@ -85,7 +85,7 @@ const ClientSelectionModal = ({ open, onClose, onAssign = () => {}, assignedClie
                     <td className="py-2 px-3">
                       {client.web ? (
                         <a
-                          href={client.web}
+                          href={client.web.startsWith('http') ? client.web : `https://${client.web}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-600 hover:underline"

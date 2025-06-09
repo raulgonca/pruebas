@@ -86,7 +86,7 @@ const Sidebar = () => {
       <div className="p-4 flex items-center justify-center">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <img src={logoFull} alt="ProjectSync Logo" className="h-10 w-auto max-w-[120px]" />
+            <img src={logoFull} alt="ProjectSync Logo" className="h-8 w-auto max-w-[120px]" />
           </div>
         )}
         {collapsed && (

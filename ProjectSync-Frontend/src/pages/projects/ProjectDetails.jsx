@@ -6,9 +6,11 @@ import { toast } from 'react-toastify';
 import ClientSelectionModal from '../../components/ClientSelectionModal';
 import ColaboradoresModal from '../../components/ColaboradoresModal';
 import LoadingSpinner from '../../components/LoadingSpinner'; 
+import { useAuth } from '../../context/AuthContext';
 
 const ProjectDetails = ({ projectId }) => {
   const { id } = useParams();
+  const { currentUser } = useAuth();
   const [repo, setRepo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -217,6 +219,15 @@ const ProjectDetails = ({ projectId }) => {
     setRefreshColabs(prev => !prev); // Fuerza recarga de colaboradores al cerrar el modal
   };
 
+  // Helper para saber si el usuario es colaborador (no owner ni admin)
+  const isColaboradorSolo = () => {
+    if (!currentUser || !repo) return false;
+    const isOwner = currentUser.id === repo.owner?.id;
+    const isAdmin = Array.isArray(currentUser.roles) && currentUser.roles.includes('ROLE_ADMIN');
+    const isColab = Array.isArray(repo.colaboradores) && repo.colaboradores.some(c => c.id === currentUser.id);
+    return isColab && !isOwner && !isAdmin;
+  };
+
   if (loading) return <LoadingSpinner section="projects" text="Cargando proyecto..." />;
   if (error) return <div className="p-8 text-red-600">{error}</div>;
   if (!repo) return null;
@@ -358,7 +369,13 @@ const ProjectDetails = ({ projectId }) => {
                   <div className="flex justify-end mt-2">
                     <button
                       className="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-7 py-2.5 rounded-xl text-lg flex items-center gap-2 shadow-lg font-bold transition-all duration-150"
-                      onClick={handleEdit}
+                      onClick={() => {
+                        if (isColaboradorSolo()) {
+                          toast.warning('No tienes permisos para modificar este proyecto porque eres colaborador.');
+                          return;
+                        }
+                        handleEdit();
+                      }}
                     >
                       <FaEdit /> Editar
                     </button>
@@ -383,10 +400,12 @@ const ProjectDetails = ({ projectId }) => {
                 <button
                   className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg flex items-center gap-2 font-semibold shadow"
                   onClick={() => {
-                    // Para depuración, muestra un log
-                    console.log('Botón asignar/cambiar cliente pulsado');
-                    setEditClient(null); // Asegura modo "nuevo cliente"
-                    setShowClientModal(true); // Abre el modal
+                    if (isColaboradorSolo()) {
+                      toast.warning('No tienes permisos para modificar este proyecto porque eres colaborador.');
+                      return;
+                    }
+                    setEditClient(null);
+                    setShowClientModal(true);
                   }}
                 >
                   {repo.client ? 'Cambiar cliente' : 'Asignar cliente'}
@@ -423,7 +442,13 @@ const ProjectDetails = ({ projectId }) => {
               </div>
               <div className="mt-4">
                 <button
-                  onClick={() => setShowColabModal(true)}
+                  onClick={() => {
+                    if (isColaboradorSolo()) {
+                      toast.warning('No tienes permisos para modificar este proyecto porque eres colaborador.');
+                      return;
+                    }
+                    setShowColabModal(true);
+                  }}
                   className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg flex items-center justify-center gap-2 font-semibold shadow"
                 >
                   <FaUserFriends /> Agregar colaborador
