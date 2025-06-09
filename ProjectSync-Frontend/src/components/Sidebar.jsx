@@ -119,10 +119,10 @@ const Sidebar = () => {
                   isActive(item.path) 
                     ? 'bg-purple-600 text-white' 
                     : 'text-gray-200 hover:bg-purple-700'
-                } rounded-lg mx-2 transition-colors`}
+                } rounded-lg mx-2 transition-colors justify-center ${collapsed ? 'justify-center' : ''}`}
                 onClick={() => isMobile && setCollapsed(true)}
               >
-                <span className="text-xl mr-3">{item.icon}</span>
+                <span className={`text-xl ${collapsed ? '' : 'mr-3'}`}>{item.icon}</span>
                 {!collapsed && <span>{item.name}</span>}
               </Link>
             </li>
