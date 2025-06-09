@@ -83,7 +83,6 @@ class ProjectFileController extends AbstractController
             $response->headers->set('Content-Length', filesize($zipFile));
 
             // Elimina el ZIP temporal después de enviar la respuesta
-            $response->sendHeaders();
             register_shutdown_function(function () use ($zipFile) {
                 @unlink($zipFile);
             });
