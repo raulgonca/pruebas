@@ -52,7 +52,7 @@ class ProjectFileController extends AbstractController
             // Verificar el token y obtener el usuario
             try {
                 $user = $this->getUser();
-                if (!$user) {
+                if (!$user instanceof User) {
                     throw $this->createAccessDeniedException('Token inválido o expirado');
                 }
             } catch (\Exception $e) {

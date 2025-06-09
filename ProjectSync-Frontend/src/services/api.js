@@ -58,7 +58,7 @@ const fetchFromAPI = async (endpoint, options = {}) => {
     try {
       data = responseText ? JSON.parse(responseText) : {};
       console.log('Respuesta del servidor parseada:', data);
-    } catch (error) {
+    } catch {
       console.error('Error al parsear la respuesta JSON:', responseText);
       throw new Error('Error al procesar la respuesta del servidor');
     }
@@ -565,7 +565,34 @@ export const projectFileService = {
     const API_URL = import.meta.env.VITE_URL_API;
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user?.token) throw new Error('No hay token de autenticación');
-    window.open(`${API_URL}/api/projects/${projectId}/files/download-zip?token=${user.token}`, '_blank');
+    
+    try {
+      const response = await fetch(`${API_URL}/api/projects/${projectId}/files/download-zip`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('No autorizado. Inicia sesión de nuevo.');
+        }
+        throw new Error('Error al descargar el archivo ZIP');
+      }
+
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = `proyecto_${projectId}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error('Error en downloadAllFilesZip:', error);
+      throw error;
+    }
   },
   // Eliminar un archivo de un proyecto
   deleteFile: async (projectId, fileId) => {
