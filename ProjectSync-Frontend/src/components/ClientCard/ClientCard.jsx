@@ -16,23 +16,23 @@ const ClientCard = ({ client, onEdit }) => {
     : false;
 
   return (
-    <div className="w-full bg-white border-2 border-purple-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col md:flex-row items-stretch">
-      {/* Cabecera con nombre y botón editar */}
+    <div className="w-full bg-white border-2 border-purple-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col md:flex-row items-stretch relative">
+      {/* Botón editar solo para admin, fuera del gradiente para mejor visibilidad */}
+      {isAdmin && onEdit && (
+        <button
+          className="absolute top-3 right-3 bg-white text-purple-600 hover:bg-purple-100 border border-purple-200 rounded-full p-2 shadow transition z-20"
+          onClick={() => onEdit(client)}
+          title="Editar cliente"
+        >
+          <FaPen />
+        </button>
+      )}
+      {/* Cabecera con nombre */}
       <div className="flex flex-row items-center md:w-1/3 min-w-[220px] bg-gradient-to-r from-purple-600 via-purple-300/70 to-transparent p-3 pl-5">
         <FaUser className="text-2xl mr-3 bg-white text-purple-500 p-1.5 rounded-full shadow-sm" />
         <h3 className="text-lg font-bold truncate text-white drop-shadow" title={client.name}>
           {truncateText(client.name, 30)}
         </h3>
-        {isAdmin && onEdit && (
-          <button
-            className="ml-auto bg-white text-purple-500 hover:bg-purple-100 rounded-full p-2 shadow transition"
-            onClick={() => onEdit(client)}
-            title="Editar cliente"
-            style={{ marginLeft: 'auto' }}
-          >
-            <FaPen />
-          </button>
-        )}
       </div>
       {/* Información del cliente */}
       <div className="flex-1 p-3 md:p-4 flex flex-col justify-center">
