@@ -55,11 +55,14 @@ services:
     networks:
       - app-network
     command: bash -c "composer install && php -S 0.0.0.0:8000 -t public"
+    depends_on:
+      - db
 
   db:
     image: mysql:8.0
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=projectsync
     volumes:
       - db_data:/var/lib/mysql
