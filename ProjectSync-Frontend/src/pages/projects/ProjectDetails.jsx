@@ -92,6 +92,15 @@ const ProjectDetails = ({ projectId }) => {
   };
 
   const handleSave = async () => {
+    // Validación de fechas
+    if (
+      editData.fechaInicio &&
+      editData.fechaFin &&
+      editData.fechaFin < editData.fechaInicio
+    ) {
+      toast.error('La fecha de fin no puede ser anterior a la fecha de inicio.');
+      return;
+    }
     try {
       let payload = {
         projectname: editData.projectname,
@@ -235,6 +244,10 @@ const ProjectDetails = ({ projectId }) => {
     <div className="min-h-screen flex-1">
       {/* No sidebar aquí, lo pone la app */}
       <main className="w-full max-w-7xl mx-auto p-2 sm:p-4 md:p-10">
+        {/* Título principal */}
+        <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-6">
+          Detalles del Proyecto
+        </h1>
         {/* Botón volver */}
         <div className="mb-4 sm:mb-6">
           <Link to="/main/projects" className="flex items-center text-purple-600 hover:underline text-base sm:text-lg font-medium">
