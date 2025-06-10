@@ -39,14 +39,20 @@ const ProjectCreate = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
+
+    // Validación de fechas
+    if (form.fechaInicio && form.fechaFin && form.fechaFin < form.fechaInicio) {
+      setLoading(false);
+      toast.error('La fecha de fin no puede ser anterior a la fecha de inicio.');
+      return;
+    }
+
     try {
       const formData = new FormData();
       // Añadir los campos del formulario al FormData
       Object.keys(form).forEach(key => {
         formData.append(key, form[key]);
       });
-
-      
 
       // Añadir el owner desde el usuario logueado
       const user = JSON.parse(localStorage.getItem('user'));
